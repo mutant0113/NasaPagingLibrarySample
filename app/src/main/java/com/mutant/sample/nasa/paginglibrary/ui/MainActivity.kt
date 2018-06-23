@@ -1,7 +1,8 @@
-package com.mutant.sample.nasa.paginglibrary
+package com.mutant.sample.nasa.paginglibrary.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import com.mutant.sample.nasa.paginglibrary.R
 
 class MainActivity : AppCompatActivity() {
 
