@@ -1,4 +1,8 @@
 package com.mutant.sample.nasa.paginglibrary.model
 
-class ApodSearchResult {
-}
+import android.arch.lifecycle.LiveData
+import android.arch.paging.PagedList
+
+data class ApodSearchResult(
+        private val data: LiveData<PagedList<Apod>>,
+        private val networkError: LiveData<String>)
