@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "apods")
 data class Apod(
-        @PrimaryKey(autoGenerate = true)
-        @field:SerializedName("id")
-        val id: Long,
+        @PrimaryKey
+        @field:SerializedName("title")
+        val title: String,
 
         @field:SerializedName("date")
         val date: String,
@@ -21,9 +21,6 @@ data class Apod(
 
         @field:SerializedName("media_type")
         val mediaType: String,
-
-        @field:SerializedName("title")
-        val title: String,
 
         @field:SerializedName("url")
         val url: String
