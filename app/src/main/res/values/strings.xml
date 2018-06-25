@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NasaPagingLibrarySample</string>
     <string name="no_result">No Result</string>
+    <string name="no_data">No Data</string>
 </resources>

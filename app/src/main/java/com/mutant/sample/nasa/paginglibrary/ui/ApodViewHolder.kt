@@ -13,10 +13,15 @@ class ApodViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(apod: Apod?) {
         if (apod == null) {
-
+            showErrorData()
         } else {
             showApodData(apod)
         }
+    }
+
+    private fun showErrorData() {
+        itemView.text_view_date.text = itemView.resources.getText(R.string.no_data)
+        itemView.text_view_title.text = itemView.resources.getText(R.string.no_data)
     }
 
     private fun showApodData(apod: Apod) {
