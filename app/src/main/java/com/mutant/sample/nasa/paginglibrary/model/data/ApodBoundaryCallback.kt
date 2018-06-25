@@ -33,16 +33,19 @@ class ApodBoundaryCallback(private val queryDate: QueryDate,
     }
 
     private fun requestAndSaveData() {
-        if(isRequestInProgress) return
+        if (isRequestInProgress) return
 
         isRequestInProgress = true
-        searchApods(service, queryDate).subscribe {
+        searchApods(service, queryDate).subscribe({
+            cache.insert(apods = it, insertFinished = {
+                // TODO count date
+                DebugUtils.i("requestAndSaveData() success: $it.message")
+                isRequestInProgress = false
+            })
+        }, {
+            DebugUtils.i("requestAndSaveData() fail: $it.message")
+            _networkErrors.postValue(it.message)
             isRequestInProgress = false
-            if(it.isNotEmpty()) {
-                cache.insert(apods = it, insertFinished = {
-                    // TODO count date
-                })
-            }
-        }
+        })
     }
 }
