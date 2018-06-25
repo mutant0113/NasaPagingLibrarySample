@@ -6,25 +6,25 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "apods")
 data class Apod(
-        @PrimaryKey
+        @PrimaryKey(autoGenerate = true)
         @field:SerializedName("id")
-        private val id: Long,
+        val id: Long,
 
         @field:SerializedName("date")
-        private val date: String,
+        val date: String,
 
         @field:SerializedName("explanation")
-        private val explanation: String,
+        val explanation: String,
 
         @field:SerializedName("hdurl")
-        private val hdUrl: String,
+        val hdUrl: String?,
 
         @field:SerializedName("media_type")
-        private val mediaType: String,
+        val mediaType: String,
 
         @field:SerializedName("title")
-        private val title: String,
+        val title: String,
 
         @field:SerializedName("url")
-        private val url: String
+        val url: String
 )
