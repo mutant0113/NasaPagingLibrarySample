@@ -26,6 +26,7 @@ class ApodViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 //                        .placeholder()
 //                .error(R.drawable.ic_person)
 //                .animate()
+        itemView.text_view_date.text = apod.date
         itemView.text_view_title.text = apod.title
     }
 

@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        android:background="@color/card_background">
+        android:background="@color/card_background"
+        android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/image_view_photo"
@@ -24,12 +25,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_photo" />
+
+        <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_photo" />
+            app:layout_constraintStart_toStartOf="@+id/text_view_date"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_date" />
 
     </android.support.constraint.ConstraintLayout>
 
