@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">NasaPagingLibrarySample</string>
+    <string name="to">to</string>
     <string name="no_result">No Result</string>
     <string name="no_data">No Data</string>
+    <string name="date_format">%1$d-%2$02d-%3$02d</string>
 </resources>

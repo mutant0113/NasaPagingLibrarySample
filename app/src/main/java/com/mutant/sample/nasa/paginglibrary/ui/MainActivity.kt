@@ -5,7 +5,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import com.mutant.sample.nasa.paginglibrary.DateUtils
+import com.mutant.sample.nasa.paginglibrary.DialogUtils
 import com.mutant.sample.nasa.paginglibrary.Injection.provideViewModelFactory
 import com.mutant.sample.nasa.paginglibrary.R
 import com.mutant.sample.nasa.paginglibrary.model.QueryDate
@@ -26,9 +29,26 @@ class MainActivity : AppCompatActivity() {
         initAdapter()
 
         // TODO Choose by user
-        val queryDate = QueryDate("2018-06-01", "2018-06-24")
-        viewModel.searchApod(queryDate)
-        initSearch(queryDate)
+        text_view_start_date.text = "2018-06-01"
+        text_view_end_date.text = "2018-06-24"
+        initListeners()
+        search()
+    }
+
+    private fun initListeners() {
+        text_view_start_date.setOnClickListener({
+            val minDateMillisecs = 803232000000 // 1995/06/15
+            DialogUtils.createPickDateDialog(this@MainActivity, it as TextView, minDateMillisecs).show()
+        })
+
+        text_view_end_date.setOnClickListener({
+            val selectDateMillisecs = DateUtils.dateToMillisecs((text_view_start_date as TextView).text.toString())
+            DialogUtils.createPickDateDialog(this@MainActivity, it as TextView, selectDateMillisecs).show()
+        })
+
+        button_search.setOnClickListener({
+            search()
+        })
     }
 
     private fun initAdapter() {
@@ -46,12 +66,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showEmptyList(show: Boolean) {
-        list_apods.visibility = if(show) View.GONE else View.VISIBLE
-        text_view_empty_list.visibility = if(show) View.VISIBLE else View.GONE
+        list_apods.visibility = if (show) View.GONE else View.VISIBLE
+        text_view_empty_list.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    private fun initSearch(queryDate: QueryDate) {
-        // TODO search
+    private fun search() {
+        val queryDate = QueryDate(text_view_start_date.text.toString(), text_view_end_date.text.toString())
+        viewModel.searchApod(queryDate)
     }
 
 }
