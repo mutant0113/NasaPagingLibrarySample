@@ -14,7 +14,6 @@ class ApodBoundaryCallback(private val queryDate: QueryDate,
                            private val service: NasaService,
                            private val cache: ApodLocalCache) : PagedList.BoundaryCallback<Apod>() {
 
-    // TODO Count date
     private val _networkErrors = MutableLiveData<String>()
     // LiveData of network errors.
     val networkErrors: LiveData<String>
@@ -38,12 +37,10 @@ class ApodBoundaryCallback(private val queryDate: QueryDate,
         isRequestInProgress = true
         searchApods(service, queryDate).subscribe({
             cache.insert(apods = it, insertFinished = {
-                // TODO count date
-                DebugUtils.i("requestAndSaveData() success: $it.message")
+                queryDate.increaseMonth()
                 isRequestInProgress = false
             })
         }, {
-            DebugUtils.i("requestAndSaveData() fail: $it.message")
             _networkErrors.postValue(it.message)
             isRequestInProgress = false
         })

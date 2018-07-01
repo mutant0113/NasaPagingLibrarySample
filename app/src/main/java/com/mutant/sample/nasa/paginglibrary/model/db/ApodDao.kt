@@ -13,6 +13,6 @@ interface ApodDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(apods: List<Apod>)
 
-    @Query("SELECT * FROM apods WHERE (date >= :startDate) AND (date <= :endDate) ORDER BY date DESC")
+    @Query("SELECT * FROM apods WHERE (date >= :startDate) AND (date <= :endDate) ORDER BY date ASC")
     fun queryByDate(startDate: String, endDate: String): DataSource.Factory<Int, Apod>
 }

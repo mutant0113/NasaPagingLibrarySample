@@ -14,23 +14,25 @@ import com.mutant.sample.nasa.paginglibrary.R
 import com.mutant.sample.nasa.paginglibrary.model.QueryDate
 import com.mutant.sample.nasa.paginglibrary.viewmodel.ApodViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ApodViewModel
 
+    // Default 2018-06-01 to 2018-06-30
+    private var queryDate = QueryDate(Date(1527782400000), Date(1530288000000))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // TODO inject view model factory
         viewModel = ViewModelProviders.of(this, provideViewModelFactory(this))
                 .get(ApodViewModel::class.java)
         initAdapter()
 
-        // TODO Choose by user
-        text_view_start_date.text = "2018-06-01"
-        text_view_end_date.text = "2018-06-24"
+        text_view_start_date.text = queryDate.getStartDateStr()
+        text_view_end_date.text = queryDate.getEndDateStr()
         initListeners()
         search()
     }
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         text_view_end_date.setOnClickListener({
-            val selectDateMillisecs = DateUtils.dateToMillisecs((text_view_start_date as TextView).text.toString())
+            val selectDateMillisecs = DateUtils.dateStrToMillisecs((text_view_start_date as TextView).text.toString())
             DialogUtils.createPickDateDialog(this@MainActivity, it as TextView, selectDateMillisecs).show()
         })
 
@@ -71,8 +73,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun search() {
-        val queryDate = QueryDate(text_view_start_date.text.toString(), text_view_end_date.text.toString())
+        updateQueryDate()
         viewModel.searchApod(queryDate)
+    }
+
+    private fun updateQueryDate() {
+        val startDate = Date(DateUtils.dateStrToMillisecs(text_view_start_date.text.toString()))
+        val endDate = Date(DateUtils.dateStrToMillisecs(text_view_end_date.text.toString()))
+        queryDate = QueryDate(startDate, endDate)
     }
 
 }

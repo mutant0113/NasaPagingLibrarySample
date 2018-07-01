@@ -1,6 +1,7 @@
 package com.mutant.sample.nasa.paginglibrary.model.api
 
 import com.mutant.sample.nasa.paginglibrary.BuildConfig
+import com.mutant.sample.nasa.paginglibrary.DebugUtils
 import com.mutant.sample.nasa.paginglibrary.model.Apod
 import com.mutant.sample.nasa.paginglibrary.model.QueryDate
 import io.reactivex.Observable
@@ -14,9 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-// TODO why?
 fun searchApods(service: NasaService, queryDate: QueryDate): Observable<List<Apod>> {
-    return service.searchApods(NasaService.apiKey, queryDate.startDate, queryDate.endDate)
+    DebugUtils.i("Query service, start from:${queryDate.getStartDateStr()}, " +
+            "end to:${queryDate.getLastRequestedEndDateStr()}")
+    return service.searchApods(NasaService.apiKey, queryDate.getStartDateStr(), queryDate.getLastRequestedEndDateStr())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }

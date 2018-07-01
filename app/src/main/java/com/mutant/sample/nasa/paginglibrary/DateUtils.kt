@@ -5,9 +5,14 @@ import java.util.*
 
 object DateUtils {
 
-    fun dateToMillisecs(dateStr: String): Long {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.TAIWAN)
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.TAIWAN)
+
+    fun dateStrToMillisecs(dateStr: String): Long {
         val date = dateFormat.parse(dateStr)
         return date.time
+    }
+
+    fun dateToDateStr(date: Date) : String {
+        return dateFormat.format(date).toString()
     }
 }
