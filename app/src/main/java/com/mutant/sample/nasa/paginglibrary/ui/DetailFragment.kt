@@ -1,7 +1,7 @@
 package com.mutant.sample.nasa.paginglibrary.ui
 
-import android.app.Fragment
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +16,17 @@ class DetailFragment : Fragment() {
 //        val binding = DataBindingUtil.setContentView<ViewDataBinding>(activity, R.layout.fragment_detail)
 //        binding.setVariable(BR.user, arguments.getParcelable<Apod>(ARGUMENT_APOD))
         val root = LayoutInflater.from(activity).inflate(R.layout.fragment_detail, container, false)
-        setView(root, arguments.getParcelable(ARGUMENT_APOD))
+        setView(root, arguments?.getParcelable(ARGUMENT_APOD))
         return root
     }
 
-    private fun setView(root: View, apod: Apod) {
-        Glide.with(this).load(apod.url).into(view.image_view_photo)
-        root.text_view_date.text = apod.date
-        root.text_view_title.text = apod.title
-        root.text_view_explanation.text = apod.explanation
+    private fun setView(root: View, apod: Apod?) {
+        if(apod != null) {
+            Glide.with(this).load(apod.url).into(root.image_view_photo)
+            root.text_view_date.text = apod.date
+            root.text_view_title.text = apod.title
+            root.text_view_explanation.text = apod.explanation
+        }
     }
 
     companion object {

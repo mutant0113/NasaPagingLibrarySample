@@ -13,6 +13,9 @@ class ApodsAdapter : PagedListAdapter<Apod, ApodViewHolder>(APOD_COMPARATOR) {
 
     override fun onBindViewHolder(holder: ApodViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener({
+            (it.context as MainActivity).showDetailView(getItem(position))
+        })
     }
 
     companion object {

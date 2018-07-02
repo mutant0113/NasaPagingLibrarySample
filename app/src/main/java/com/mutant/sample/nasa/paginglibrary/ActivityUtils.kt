@@ -41,6 +41,13 @@ object ActivityUtils {
         fragmentManager.executePendingTransactions()
     }
 
+    fun removeFragment(fragmentManager: FragmentManager, fragment: Fragment) {
+        val transaction = fragmentManager.beginTransaction()
+        transaction.remove(fragment)
+        transaction.commit()
+        fragmentManager.executePendingTransactions()
+    }
+
     fun replaceFragment(fragmentManager: FragmentManager, fragment: Fragment, frameId: Int, tag: String) {
         val transaction = fragmentManager.beginTransaction()
         transaction.replace(frameId, fragment, tag)

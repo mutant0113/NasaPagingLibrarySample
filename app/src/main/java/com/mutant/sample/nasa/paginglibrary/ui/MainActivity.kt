@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import com.mutant.sample.nasa.paginglibrary.ActivityUtils
 import com.mutant.sample.nasa.paginglibrary.Injection.provideViewModelFactory
 import com.mutant.sample.nasa.paginglibrary.R
+import com.mutant.sample.nasa.paginglibrary.model.Apod
 import com.mutant.sample.nasa.paginglibrary.viewmodel.ApodViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -22,14 +23,34 @@ class MainActivity : AppCompatActivity() {
         var apodsFragment = supportFragmentManager.findFragmentById(R.id.content_main) as ApodsFragment?
         if (apodsFragment == null) {
             apodsFragment = ApodsFragment.newInstance()
-            ActivityUtils.addFragment(supportFragmentManager, apodsFragment,
-                    R.id.content_main, TAG_FRAGMENT_WORDS)
+            ActivityUtils.addFragment(supportFragmentManager, apodsFragment, R.id.content_main, TAG_FRAGMENT_APODS)
         }
         apodsFragment.setViewModel(viewModel)
     }
 
+    fun showDetailView(apod: Apod?) {
+        if (supportFragmentManager.findFragmentById(R.id.content_main) !is DetailFragment) {
+            if (apod != null) {
+                val detailFragment = DetailFragment.newInstance(apod)
+                ActivityUtils.addFragment(supportFragmentManager, detailFragment, R.id.content_main, TAG_FRAGMENT_DETAIL)
+                ActivityUtils.hideFragment(supportFragmentManager, TAG_FRAGMENT_APODS)
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        var detailFragment = supportFragmentManager.findFragmentById(R.id.content_main) as DetailFragment?
+        if (detailFragment != null) {
+            ActivityUtils.removeFragment(supportFragmentManager, detailFragment)
+            ActivityUtils.showFragment(supportFragmentManager, TAG_FRAGMENT_APODS)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     companion object {
-        private const val TAG_FRAGMENT_WORDS = "TAG_FRAGMENT_WORDS"
+        private const val TAG_FRAGMENT_APODS = "TAG_FRAGMENT_APODS"
+        private const val TAG_FRAGMENT_DETAIL = "TAG_FRAGMENT_DETAIL"
     }
 
 }
