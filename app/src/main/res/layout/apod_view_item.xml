@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/image_view_photo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/avod_photh_height"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
