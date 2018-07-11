@@ -20,6 +20,6 @@ class NasaRepository(private val service: NasaService, private val cache: ApodLo
     }
 
     companion object {
-        private const val DATABASE_PAGE_SIZE = 4
+        private const val DATABASE_PAGE_SIZE = 10
     }
 }

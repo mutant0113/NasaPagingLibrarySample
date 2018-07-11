@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        var detailFragment = supportFragmentManager.findFragmentById(R.id.content_main) as DetailFragment?
-        if (detailFragment != null) {
-            ActivityUtils.removeFragment(supportFragmentManager, detailFragment)
+        var forgroundFragment = supportFragmentManager.findFragmentById(R.id.content_main)
+        if (forgroundFragment is DetailFragment) {
+            ActivityUtils.removeFragment(supportFragmentManager, forgroundFragment)
             ActivityUtils.showFragment(supportFragmentManager, TAG_FRAGMENT_APODS)
         } else {
             super.onBackPressed()
